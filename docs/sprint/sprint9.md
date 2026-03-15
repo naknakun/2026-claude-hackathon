@@ -14,6 +14,15 @@
 - 7개 핵심 흐름 테스트 모두 통과 (pass)
 - `npm run test:e2e` 단일 명령으로 전체 실행 가능
 - CI 환경에서도 동작 가능한 headless 모드 지원
+- Desktop Chrome + Mobile Chrome (Pixel 5) 양쪽 환경 모두 통과
+
+## 테스트 결과
+
+| 환경 | 결과 |
+|------|------|
+| Desktop Chrome | 11/11 통과 |
+| Mobile Chrome (Pixel 5) | 11/11 통과 |
+| **합계** | **22/22 통과** |
 
 ---
 
@@ -164,5 +173,5 @@ board/
 
 - 테스트 데이터는 고유 식별자(타임스탬프) 포함해 충돌 방지
 - `afterEach`에서 생성한 게시글 삭제 (DB 오염 방지)
-- Chromium만 사용 (속도 우선, 크로스 브라우저는 추후)
+- Desktop Chrome + Mobile Chrome (Pixel 5) 두 환경에서 동일 시나리오 검증
 - `baseURL`: `http://localhost:3000`

@@ -239,5 +239,6 @@ board/
 | 테스트 종류 | 도구 | 결과 |
 |------------|------|------|
 | 단위 테스트 | Vitest + React Testing Library | 25/25 통과 |
-| E2E 테스트 | Playwright | 11/11 통과 |
+| E2E — Desktop Chrome | Playwright | 11/11 통과 |
+| E2E — Mobile Chrome (Pixel 5) | Playwright | 11/11 통과 |
 | 커버리지 | @vitest/coverage-v8 | 대상 컴포넌트 100% |
