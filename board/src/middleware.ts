@@ -25,10 +25,10 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  const { data: { user } } = await supabase.auth.getUser()
+  const { data: { session } } = await supabase.auth.getSession()
 
   // 미로그인 시 글쓰기 페이지 접근 차단
-  if (!user && request.nextUrl.pathname.startsWith('/posts/new')) {
+  if (!session && request.nextUrl.pathname.startsWith('/posts/new')) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
