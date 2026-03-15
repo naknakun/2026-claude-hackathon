@@ -99,9 +99,15 @@ export default async function HomePage({
             </Link>
           ))
         ) : (
-          <p className="text-center text-[var(--text-muted)] py-20 text-sm">
-            {isFiltered ? '검색 결과가 없습니다.' : '아직 게시글이 없습니다. 첫 글을 작성해보세요!'}
-          </p>
+          <div className="text-center py-16 text-[var(--text-muted)]">
+            {search ? (
+              <p className="text-sm">"{search}"에 대한 검색 결과가 없습니다.</p>
+            ) : tag ? (
+              <p className="text-sm">#{tag} 태그가 달린 게시글이 없습니다.</p>
+            ) : (
+              <p className="text-sm">아직 작성된 글이 없습니다.</p>
+            )}
+          </div>
         )}
       </div>
     </div>

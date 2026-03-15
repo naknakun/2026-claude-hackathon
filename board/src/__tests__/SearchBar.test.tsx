@@ -33,9 +33,9 @@ describe('SearchBar', () => {
     const user = userEvent.setup()
     render(<SearchBar />)
 
-    expect(screen.queryByRole('button', { name: '✕' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '검색어 초기화' })).not.toBeInTheDocument()
     await user.type(screen.getByPlaceholderText('제목 또는 내용 검색'), 'hello')
-    expect(screen.getByRole('button', { name: '✕' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '검색어 초기화' })).toBeInTheDocument()
   })
 
   it('✕ 버튼 클릭 시 검색어 초기화 및 router.push 호출', async () => {
@@ -43,7 +43,7 @@ describe('SearchBar', () => {
     render(<SearchBar />)
 
     await user.type(screen.getByPlaceholderText('제목 또는 내용 검색'), 'hello')
-    await user.click(screen.getByRole('button', { name: '✕' }))
+    await user.click(screen.getByRole('button', { name: '검색어 초기화' }))
     expect(mockPush).toHaveBeenCalledWith('/?')
     expect(screen.getByPlaceholderText('제목 또는 내용 검색')).toHaveValue('')
   })

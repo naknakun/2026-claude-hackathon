@@ -12,6 +12,7 @@ export default function DeletePostButton({ postId }: { postId: string }) {
     const supabase = createClient()
     await supabase.from('posts').delete().eq('id', postId)
 
+    sessionStorage.setItem('pendingToast', JSON.stringify({ message: '게시글이 삭제되었습니다.', type: 'success' }))
     router.push('/')
     router.refresh()
   }
@@ -19,6 +20,7 @@ export default function DeletePostButton({ postId }: { postId: string }) {
   return (
     <button
       onClick={handleDelete}
+      aria-label="게시글 삭제"
       className="text-xs text-red-400 hover:text-red-600"
     >
       삭제

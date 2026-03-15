@@ -62,6 +62,7 @@ export default function LikeButton({ postId }: { postId: string }) {
     <button
       onClick={handleToggle}
       disabled={loading}
+      aria-label={liked ? '좋아요 취소' : '좋아요'}
       className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium border transition-all disabled:opacity-50 ${
         liked
           ? 'bg-[var(--accent)] text-white border-[var(--accent)] shadow-sm'

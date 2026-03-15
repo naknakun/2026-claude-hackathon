@@ -2,13 +2,16 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase'
+import { useToast } from '@/components/ToastProvider'
 import type { Comment } from '@/types'
 
 export default function CommentSection({ postId }: { postId: string }) {
   const [comments, setComments] = useState<Comment[]>([])
   const [content, setContent] = useState('')
   const [loading, setLoading] = useState(false)
+  const [loadingComments, setLoadingComments] = useState(true)
   const [userId, setUserId] = useState<string | null>(null)
+  const toast = useToast()
 
   useEffect(() => {
     const supabase = createClient()
@@ -19,6 +22,7 @@ export default function CommentSection({ postId }: { postId: string }) {
   }, [])
 
   async function fetchComments() {
+    setLoadingComments(true)
     const supabase = createClient()
     const { data } = await supabase
       .from('comments')
@@ -26,6 +30,7 @@ export default function CommentSection({ postId }: { postId: string }) {
       .eq('post_id', postId)
       .order('created_at', { ascending: true })
     setComments(data ?? [])
+    setLoadingComments(false)
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -49,6 +54,7 @@ export default function CommentSection({ postId }: { postId: string }) {
 
     setContent('')
     setLoading(false)
+    toast.show('댓글이 등록되었습니다.')
     fetchComments()
   }
 
@@ -56,6 +62,7 @@ export default function CommentSection({ postId }: { postId: string }) {
     if (!confirm('댓글을 삭제할까요?')) return
     const supabase = createClient()
     await supabase.from('comments').delete().eq('id', commentId)
+    toast.show('댓글이 삭제되었습니다.')
     fetchComments()
   }
 
@@ -67,29 +74,37 @@ export default function CommentSection({ postId }: { postId: string }) {
       </h2>
 
       <div className="space-y-0 mb-5 divide-y divide-[var(--border)]">
-        {comments.map((comment) => (
-          <div key={comment.id} className="flex items-start justify-between gap-2 py-3">
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-xs font-medium text-[var(--text-secondary)]">익명</span>
-                <span className="text-xs text-[var(--text-muted)]">
-                  {new Date(comment.created_at).toLocaleDateString('ko-KR')}
-                </span>
-              </div>
-              <p className="text-sm text-[var(--text-primary)] leading-relaxed">{comment.content}</p>
-            </div>
-            {userId === (comment as unknown as { user_id: string }).user_id && (
-              <button
-                onClick={() => handleDelete(comment.id)}
-                className="text-xs text-[var(--text-muted)] hover:text-red-500 transition-colors shrink-0 mt-1"
-              >
-                삭제
-              </button>
-            )}
+        {loadingComments ? (
+          <div className="flex justify-center py-4">
+            <div className="w-5 h-5 border-2 border-[var(--accent)] border-t-transparent rounded-full animate-spin" />
           </div>
-        ))}
-        {comments.length === 0 && (
-          <p className="text-sm text-[var(--text-muted)] py-4">첫 댓글을 남겨보세요!</p>
+        ) : (
+          <>
+            {comments.map((comment) => (
+              <div key={comment.id} className="flex items-start justify-between gap-2 py-3">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xs font-medium text-[var(--text-secondary)]">익명</span>
+                    <span className="text-xs text-[var(--text-muted)]">
+                      {new Date(comment.created_at).toLocaleDateString('ko-KR')}
+                    </span>
+                  </div>
+                  <p className="text-sm text-[var(--text-primary)] leading-relaxed">{comment.content}</p>
+                </div>
+                {userId === (comment as unknown as { user_id: string }).user_id && (
+                  <button
+                    onClick={() => handleDelete(comment.id)}
+                    className="text-xs text-[var(--text-muted)] hover:text-red-500 transition-colors shrink-0 mt-1"
+                  >
+                    삭제
+                  </button>
+                )}
+              </div>
+            ))}
+            {comments.length === 0 && (
+              <p className="text-sm text-[var(--text-muted)] py-4">첫 댓글을 남겨보세요!</p>
+            )}
+          </>
         )}
       </div>
 

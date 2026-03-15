@@ -31,15 +31,33 @@
   "directoryMap": {},
   "hotPaths": [
     {
+      "path": "board\\src\\app\\layout.tsx",
+      "accessCount": 10,
+      "lastAccessed": 1773615537754,
+      "type": "file"
+    },
+    {
+      "path": "board\\src\\app\\page.tsx",
+      "accessCount": 10,
+      "lastAccessed": 1773615597123,
+      "type": "file"
+    },
+    {
       "path": "board\\src\\components\\Header.tsx",
       "accessCount": 8,
       "lastAccessed": 1773583326317,
       "type": "file"
     },
     {
-      "path": "board\\src\\app\\page.tsx",
+      "path": "docs\\ROADMAP.md",
       "accessCount": 8,
-      "lastAccessed": 1773583352508,
+      "lastAccessed": 1773615050541,
+      "type": "file"
+    },
+    {
+      "path": "board\\src\\components\\CommentSection.tsx",
+      "accessCount": 8,
+      "lastAccessed": 1773615587365,
       "type": "file"
     },
     {
@@ -49,27 +67,21 @@
       "type": "file"
     },
     {
-      "path": "board\\src\\app\\layout.tsx",
+      "path": "board\\src\\app\\posts\\new\\page.tsx",
       "accessCount": 7,
-      "lastAccessed": 1773583604704,
+      "lastAccessed": 1773615545935,
       "type": "file"
     },
     {
-      "path": "board\\src\\components\\CommentSection.tsx",
+      "path": "board\\next.config.ts",
       "accessCount": 6,
-      "lastAccessed": 1773583477646,
+      "lastAccessed": 1773586549541,
       "type": "file"
     },
     {
       "path": "board\\src\\app\\globals.css",
       "accessCount": 5,
       "lastAccessed": 1773583311789,
-      "type": "file"
-    },
-    {
-      "path": "board\\src\\app\\posts\\new\\page.tsx",
-      "accessCount": 5,
-      "lastAccessed": 1773583376463,
       "type": "file"
     },
     {
@@ -85,9 +97,9 @@
       "type": "file"
     },
     {
-      "path": "docs\\ROADMAP.md",
+      "path": "board\\src\\components\\LikeButton.tsx",
       "accessCount": 5,
-      "lastAccessed": 1773584057306,
+      "lastAccessed": 1773615529569,
       "type": "file"
     },
     {
@@ -97,15 +109,27 @@
       "type": "file"
     },
     {
-      "path": "board\\next.config.ts",
-      "accessCount": 4,
-      "lastAccessed": 1773583631246,
-      "type": "file"
-    },
-    {
       "path": "board\\src\\types\\index.ts",
       "accessCount": 4,
       "lastAccessed": 1773584159271,
+      "type": "file"
+    },
+    {
+      "path": "board\\package.json",
+      "accessCount": 4,
+      "lastAccessed": 1773584805564,
+      "type": "file"
+    },
+    {
+      "path": "CLAUDE.md",
+      "accessCount": 4,
+      "lastAccessed": 1773586412045,
+      "type": "file"
+    },
+    {
+      "path": "board\\src\\components\\DeletePostButton.tsx",
+      "accessCount": 4,
+      "lastAccessed": 1773615563582,
       "type": "file"
     },
     {
@@ -127,21 +151,27 @@
       "type": "file"
     },
     {
-      "path": "board\\src\\components\\LikeButton.tsx",
+      "path": "board\\playwright.config.ts",
       "accessCount": 3,
-      "lastAccessed": 1773583422599,
+      "lastAccessed": 1773615006587,
       "type": "file"
     },
     {
-      "path": "CLAUDE.md",
-      "accessCount": 3,
-      "lastAccessed": 1773583834382,
-      "type": "file"
-    },
-    {
-      "path": "board\\package.json",
+      "path": "docs\\sprint\\sprint8.md",
       "accessCount": 2,
-      "lastAccessed": 1773584234241,
+      "lastAccessed": 1773584558501,
+      "type": "file"
+    },
+    {
+      "path": "docs\\SPEC.md",
+      "accessCount": 2,
+      "lastAccessed": 1773586414624,
+      "type": "file"
+    },
+    {
+      "path": "board\\vitest.config.ts",
+      "accessCount": 2,
+      "lastAccessed": 1773615100876,
       "type": "file"
     },
     {
@@ -178,18 +208,6 @@
       "path": "board\\src\\components\\LogoutButton.tsx",
       "accessCount": 1,
       "lastAccessed": 1773581151571,
-      "type": "file"
-    },
-    {
-      "path": "board\\src\\components\\DeletePostButton.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1773581996725,
-      "type": "file"
-    },
-    {
-      "path": "docs\\SPEC.md",
-      "accessCount": 1,
-      "lastAccessed": 1773583771653,
       "type": "file"
     },
     {
@@ -241,12 +259,6 @@
       "type": "file"
     },
     {
-      "path": "docs\\sprint\\sprint8.md",
-      "accessCount": 1,
-      "lastAccessed": 1773584092942,
-      "type": "file"
-    },
-    {
       "path": "board\\src\\lib\\search.ts",
       "accessCount": 1,
       "lastAccessed": 1773584171960,
@@ -259,9 +271,63 @@
       "type": "file"
     },
     {
-      "path": "board\\vitest.config.ts",
+      "path": "docs\\sprint\\sprint9.md",
       "accessCount": 1,
-      "lastAccessed": 1773584217655,
+      "lastAccessed": 1773584680029,
+      "type": "file"
+    },
+    {
+      "path": "board\\e2e\\helpers\\auth.ts",
+      "accessCount": 1,
+      "lastAccessed": 1773584822596,
+      "type": "file"
+    },
+    {
+      "path": "board\\e2e\\auth.spec.ts",
+      "accessCount": 1,
+      "lastAccessed": 1773584834463,
+      "type": "file"
+    },
+    {
+      "path": "board\\e2e\\post.spec.ts",
+      "accessCount": 1,
+      "lastAccessed": 1773584846429,
+      "type": "file"
+    },
+    {
+      "path": "board\\e2e\\search.spec.ts",
+      "accessCount": 1,
+      "lastAccessed": 1773584858729,
+      "type": "file"
+    },
+    {
+      "path": "board\\e2e\\tag.spec.ts",
+      "accessCount": 1,
+      "lastAccessed": 1773584870514,
+      "type": "file"
+    },
+    {
+      "path": "board\\e2e\\comment.spec.ts",
+      "accessCount": 1,
+      "lastAccessed": 1773584881363,
+      "type": "file"
+    },
+    {
+      "path": "board\\e2e\\like.spec.ts",
+      "accessCount": 1,
+      "lastAccessed": 1773584891556,
+      "type": "file"
+    },
+    {
+      "path": "README.md",
+      "accessCount": 1,
+      "lastAccessed": 1773586468691,
+      "type": "file"
+    },
+    {
+      "path": "board\\README.md",
+      "accessCount": 1,
+      "lastAccessed": 1773586486361,
       "type": "file"
     }
   ],

@@ -39,6 +39,7 @@ export default function SearchBar() {
         <button
           type="button"
           onClick={handleClear}
+          aria-label="검색어 초기화"
           className="absolute right-10 text-[var(--text-muted)] hover:text-[var(--text-secondary)] text-xs px-1"
         >
           ✕
@@ -46,6 +47,7 @@ export default function SearchBar() {
       )}
       <button
         type="submit"
+        aria-label="검색"
         className="absolute right-2 text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors"
       >
         🔍
