@@ -95,3 +95,72 @@ TEST_PASSWORD=testpassword123
 Authentication → URL Configuration:
 - **Site URL**: `https://2026-claude-hackathon.vercel.app`
 - **Redirect URLs**: `https://2026-claude-hackathon.vercel.app/**`
+
+---
+
+## 롤백 전략
+
+### 1. Vercel 대시보드 롤백 (가장 빠름)
+
+1. [vercel.com/dashboard](https://vercel.com/dashboard) 접속
+2. 프로젝트 → **Deployments** 탭
+3. 롤백할 이전 배포 선택 → **Promote to Production**
+
+### 2. Git Revert + 재배포
+
+```bash
+# 문제 커밋 확인
+git log --oneline -10
+
+# 해당 커밋 되돌리기
+git revert <commit-hash>
+git push origin main
+# → Vercel 자동 재배포 트리거
+```
+
+### 3. 핫픽스 브랜치
+
+```bash
+git checkout -b hotfix/issue-description
+# 수정 후
+git push origin hotfix/issue-description
+# → Vercel Preview URL로 검증 후 main에 merge
+```
+
+### 롤백 판단 기준
+
+| 상황 | 대응 |
+|------|------|
+| 빌드 실패 | GitHub Actions 로그 확인 → 수정 후 재push |
+| 배포 후 기능 오류 | Vercel 대시보드 즉시 롤백 |
+| DB 스키마 오류 | Supabase SQL Editor에서 마이그레이션 롤백 |
+
+---
+
+## 모니터링
+
+### Vercel 내장 모니터링
+
+| 항목 | 위치 |
+|------|------|
+| 배포 상태 | Vercel Dashboard → Deployments |
+| 빌드 로그 | 각 배포 클릭 → Build Logs |
+| 함수 로그 | Functions 탭 (서버 에러 확인) |
+| CI 상태 | GitHub Actions 배지 (README 상단) |
+
+### Supabase 모니터링
+
+| 항목 | 위치 |
+|------|------|
+| DB 쿼리 성능 | Supabase Dashboard → Database → Query Performance |
+| Auth 로그 | Authentication → Logs |
+| API 요청 수 | Reports → API |
+
+### 장애 대응 플로우
+
+```
+서비스 이상 감지
+    → Vercel Functions 탭에서 에러 로그 확인
+    → Supabase Dashboard에서 DB/Auth 상태 확인
+    → 원인에 따라 롤백 전략 선택 (위 참조)
+```

@@ -218,11 +218,40 @@ Sprint 6 → 라이트 / 다크 테마 + 반응형 마무리
 **완료 기준:** 주요 액션 토스트 표시, CommentSection 로딩, aria-label 추가
 
 ### 태스크
-- [ ] 토스트 컴포넌트 구현 (자체 구현, 3초 자동 닫힘)
-- [ ] 글 작성/삭제, 댓글 등록/삭제 액션에 토스트 연결
-- [ ] CommentSection 로딩 스피너
-- [ ] 빈 상태 UI 개선 (검색 결과 없음 / 전체 없음 구분)
-- [ ] 주요 버튼 aria-label 추가
+- [x] 토스트 컴포넌트 구현 (자체 구현, 3초 자동 닫힘)
+- [x] 글 작성/삭제, 댓글 등록/삭제 액션에 토스트 연결
+- [x] CommentSection 로딩 스피너
+- [x] 빈 상태 UI 개선 (검색 결과 없음 / 전체 없음 구분)
+- [x] 주요 버튼 aria-label 추가
 
 **의존성:** Sprint 9
+
+---
+
+## Sprint 13 — CI/CD 고도화 (빌드 체크 · 롤백 · 모니터링)
+
+**목표:** 프로덕션 수준 CI/CD 완성. 빌드 검증, 롤백 절차, 모니터링 문서화.
+**완료 기준:** build-check job 추가, 롤백 전략 및 모니터링 문서화
+
+### 태스크
+- [x] CI에 build-check job 추가 (npm run build)
+- [x] 롤백 전략 문서화 (Vercel 대시보드 / git revert / 핫픽스)
+- [x] 모니터링 체계 문서화 (Vercel + Supabase)
+- [x] DEPLOYMENT.md 배포 전 체크리스트 보완
+
+**의존성:** Sprint 10
+
+---
+
+## Sprint 14 — 테스트 전략 보강 (통합 테스트 · 성능)
+
+**목표:** 통합 테스트 추가, 성능 테스트 전략 문서화.
+**완료 기준:** ToastProvider 통합 테스트 통과, 전체 29개 테스트 통과
+
+### 태스크
+- [x] ToastProvider 통합 테스트 (useToast + sessionStorage 연동)
+- [x] 테스트 전략 전체 구조 문서화
+- [x] 성능 테스트 전략 및 Lighthouse 기준값 문서화
+
+**의존성:** Sprint 11
 
