@@ -181,6 +181,53 @@ Sprint 6 → 라이트 / 다크 테마 + 반응형 마무리
 
 ---
 
+## Sprint 10 — CI/CD 파이프라인
+
+**목표:** GitHub Actions로 자동화된 테스트 파이프라인 구축
+**완료 기준:** push/PR 시 Vitest 자동 실행, E2E 테스트 CI 환경 지원
+
+### 태스크
+- [ ] `.github/workflows/ci.yml` 생성 (unit-test job)
+- [ ] E2E 테스트 CI job (GitHub Secrets 연동)
+- [ ] `playwright.config.ts` webServer 옵션 추가
+- [ ] Playwright 리포트 아티팩트 업로드
+
+**의존성:** Sprint 9
+
+---
+
+## Sprint 11 — 컴포넌트 단위 테스트 + 커버리지
+
+**목표:** SearchBar, TagInput, TagBadge 컴포넌트 테스트 추가 및 커버리지 측정
+**완료 기준:** 컴포넌트 3개 테스트 통과, 커버리지 70% 이상
+
+### 태스크
+- [ ] `@vitest/coverage-v8` 설치
+- [ ] `SearchBar.tsx` 단위 테스트
+- [ ] `TagInput.tsx` 단위 테스트
+- [ ] `TagBadge.tsx` 단위 테스트
+- [ ] `test:coverage` 스크립트 추가 및 커버리지 수치 확인
+
+**의존성:** Sprint 10
+
+---
+
+## Sprint 12 — UX 개선 (토스트 · 로딩 · 접근성)
+
+**목표:** 토스트 알림, 로딩 상태, 빈 상태 UI, 접근성 개선
+**완료 기준:** 주요 액션 토스트 표시, CommentSection 로딩, aria-label 추가
+
+### 태스크
+- [ ] 토스트 컴포넌트 구현 (자체 구현, 3초 자동 닫힘)
+- [ ] 글 작성/삭제, 댓글 등록/삭제 액션에 토스트 연결
+- [ ] CommentSection 로딩 스피너
+- [ ] 빈 상태 UI 개선 (검색 결과 없음 / 전체 없음 구분)
+- [ ] 주요 버튼 aria-label 추가
+
+**의존성:** Sprint 9
+
+---
+
 ## MVP 이후 백로그
 
 | 기능 | 우선순위 |
