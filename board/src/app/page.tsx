@@ -34,10 +34,10 @@ export default async function HomePage({
             <Link
               key={post.id}
               href={`/posts/${post.id}`}
-              className="block border rounded-lg px-4 py-3 hover:bg-gray-50 transition-colors"
+              className="block border dark:border-gray-800 rounded-lg px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
             >
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
+                <span className="text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 px-2 py-0.5 rounded-full">
                   {post.category}
                 </span>
               </div>
