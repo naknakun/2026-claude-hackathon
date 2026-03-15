@@ -1,0 +1,9 @@
+# Claude Code & OMC 내부 상태 파일
+.claude/settings.local.json
+.omc/sessions/
+.omc/state/
+.omc/notepad.md
+
+# 환경변수
+.env
+.env.local
