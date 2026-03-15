@@ -26,7 +26,35 @@ Test Files: 4 passed
 Tests:      25 passed
 ```
 
-### 컴포넌트별 커버리지
+### 전체 커버리지 (`npm run test:coverage`)
+
+```
+-------------------|---------|----------|---------|---------|
+File               | % Stmts | % Branch | % Funcs | % Lines |
+-------------------|---------|----------|---------|---------|
+All files          |   21.46 |    18.66 |   26.08 |   21.35 |
+ src/components    |   21.24 |    17.39 |   25.45 |   21.54 |
+  SearchBar.tsx    |     100 |      100 |     100 |     100 |
+  TagBadge.tsx     |     100 |      100 |     100 |     100 |
+  TagInput.tsx     |     100 |      100 |     100 |     100 |
+  (기타 컴포넌트)  |       0 |        0 |       0 |       0 |
+ src/lib           |   46.15 |      100 |   44.44 |   41.66 |
+  search.ts        |     100 |      100 |     100 |     100 |
+-------------------|---------|----------|---------|---------|
+```
+
+> **전체 수치가 낮은 이유**: `CommentSection`, `LikeButton`, `Header` 등 Supabase 세션/서버 의존성이 있는 컴포넌트는 jsdom 환경에서 단위 테스트가 불가하여 E2E 테스트로 커버. 페이지 컴포넌트(`src/app/**`)는 Server Component로 설정상 제외.
+
+### 테스트 전략별 커버리지
+
+| 컴포넌트 유형 | 테스트 방법 | 커버리지 |
+|-------------|-----------|---------|
+| 순수 UI 컴포넌트 (SearchBar, TagBadge, TagInput) | Vitest 단위 테스트 | 100% |
+| 검색 유틸 함수 (search.ts) | Vitest 단위 테스트 | 100% |
+| 인터랙티브 컴포넌트 (LikeButton, CommentSection 등) | Playwright E2E | 11/11 시나리오 통과 |
+| 페이지 컴포넌트 (page.tsx — Server Component) | Playwright E2E | 11/11 시나리오 통과 |
+
+### 단위 테스트 대상 컴포넌트별 커버리지
 
 | 파일 | Stmts | Branch | Funcs | Lines |
 |------|-------|--------|-------|-------|
