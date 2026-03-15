@@ -34,6 +34,7 @@ test('존재하지 않는 키워드 검색 시 빈 결과 메시지', async ({ p
 
 test('검색어 초기화 후 전체 목록 복원', async ({ page }) => {
   await page.goto('/?search=테스트')
-  await page.getByRole('button', { name: '✕' }).click()
+  await page.waitForLoadState('networkidle')
+  await page.getByRole('button', { name: '검색어 초기화' }).click()
   await expect(page).toHaveURL('/')
 })

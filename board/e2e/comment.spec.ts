@@ -10,7 +10,9 @@ test('댓글 작성 후 목록 표시, 삭제', async ({ page }) => {
   await page.getByRole('link', { name: '글쓰기' }).click()
   await page.getByRole('button', { name: '자유' }).click()
   await page.getByPlaceholder('제목').fill(title)
-  await page.getByPlaceholder('내용을 입력하세요').fill('댓글 테스트 본문')
+  const content = page.getByPlaceholder('내용을 입력하세요')
+  await content.scrollIntoViewIfNeeded()
+  await content.fill('댓글 테스트 본문')
   await page.getByRole('button', { name: '등록' }).click()
   await expect(page).toHaveURL('/')
 
