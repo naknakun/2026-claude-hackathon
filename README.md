@@ -1,6 +1,11 @@
 # 사내 익명 게시판
 
+[![CI](https://github.com/naknakun/2026-claude-hackathon/actions/workflows/ci.yml/badge.svg)](https://github.com/naknakun/2026-claude-hackathon/actions/workflows/ci.yml)
+[![Deploy](https://img.shields.io/badge/Vercel-배포중-brightgreen)](https://2026-claude-hackathon.vercel.app)
+
 회사 구성원만 접근 가능한 익명 게시판. 이메일로 로그인하되 게시글/댓글은 완전 익명으로 작동합니다.
+
+**🌐 배포 URL:** https://2026-claude-hackathon.vercel.app
 
 ---
 
