@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase-server'
 import DeletePostButton from '@/components/DeletePostButton'
 import CommentSection from '@/components/CommentSection'
+import LikeButton from '@/components/LikeButton'
 
 export default async function PostPage({
   params,
@@ -39,6 +40,9 @@ export default async function PostPage({
       <p className="text-sm text-gray-500 mb-6">익명</p>
       <div className="text-sm leading-relaxed whitespace-pre-wrap border-t pt-4">
         {post.content}
+      </div>
+      <div className="mt-6 flex justify-center">
+        <LikeButton postId={post.id} />
       </div>
       <CommentSection postId={post.id} />
     </article>
