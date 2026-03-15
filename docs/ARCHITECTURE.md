@@ -220,11 +220,12 @@ likes (
 
 ```
 board/
-├── src/__tests__/          # Vitest 단위 테스트 (컴포넌트)
-│   ├── SearchBar.test.tsx   # 5개 케이스
-│   ├── TagInput.test.tsx    # 7개 케이스
-│   ├── TagBadge.test.tsx    # 4개 케이스
-│   └── search.test.ts       # 9개 케이스 (유틸)
+├── src/__tests__/              # Vitest 테스트 (단위 + 통합)
+│   ├── SearchBar.test.tsx       # 단위 — 5개 케이스
+│   ├── TagInput.test.tsx        # 단위 — 7개 케이스
+│   ├── TagBadge.test.tsx        # 단위 — 4개 케이스
+│   ├── search.test.ts           # 단위 — 9개 케이스 (유틸)
+│   └── ToastProvider.test.tsx   # 통합 — 4개 케이스 (Context+Hook+sessionStorage)
 │
 └── e2e/                    # Playwright E2E 테스트
     ├── helpers/auth.ts      # 공통 로그인 헬퍼
@@ -239,6 +240,7 @@ board/
 | 테스트 종류 | 도구 | 결과 |
 |------------|------|------|
 | 단위 테스트 | Vitest + React Testing Library | 25/25 통과 |
+| 통합 테스트 | Vitest + React Testing Library | 4/4 통과 (ToastProvider) |
 | E2E — Desktop Chrome | Playwright | 11/11 통과 |
 | E2E — Mobile Chrome (Pixel 5) | Playwright | 11/11 통과 |
 | 커버리지 | @vitest/coverage-v8 | 대상 컴포넌트 100% |
