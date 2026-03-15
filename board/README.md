@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 사내 익명 게시판 — board
 
-## Getting Started
+> 전체 온보딩 가이드는 루트의 [`README.md`](../README.md)를 참조하세요.
 
-First, run the development server:
+## 빠른 시작
 
 ```bash
+# 1. 의존성 설치
+npm install
+
+# 2. Playwright 브라우저 설치 (최초 1회)
+npx playwright install chromium
+
+# 3. 환경 변수 설정 (.env.local 직접 생성)
+# NEXT_PUBLIC_SUPABASE_URL=...
+# NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+# TEST_EMAIL=...
+# TEST_PASSWORD=...
+
+# 4. 개발 서버 실행
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 명령어
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| 명령어 | 설명 |
+|--------|------|
+| `npm run dev` | 개발 서버 (localhost:3000) |
+| `npm run build` | 프로덕션 빌드 |
+| `npm run test` | 단위 테스트 (Vitest) |
+| `npm run test:watch` | 단위 테스트 watch 모드 |
+| `npm run test:e2e` | E2E 테스트 (dev 서버 실행 필요) |
+| `npm run test:e2e:ui` | E2E 테스트 UI 모드 |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Claude Code로 작업하기
 
-## Learn More
+```bash
+# board/ 폴더에서 Claude Code 실행
+claude
+```
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Claude가 `../CLAUDE.md`와 `../docs/sprint/` 최신 파일을 자동으로 읽어 컨텍스트를 파악합니다.
