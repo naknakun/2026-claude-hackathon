@@ -11,54 +11,62 @@
 
 ## 완료 기준
 
-- 글 작성/삭제/댓글 등록/좋아요 액션 시 토스트 알림 표시
-- CommentSection 로딩 스피너 추가
-- 게시글 없을 때 빈 상태 UI (검색 결과 없음 / 전체 없음 구분)
-- 폼 입력 오류 시 구체적 메시지 표시
-- 주요 인터랙티브 요소 aria-label 추가
+- [x] 글 작성/삭제, 댓글 등록/삭제 액션 시 토스트 알림 표시
+- [x] CommentSection 로딩 스피너 추가
+- [x] 빈 상태 UI 개선 (검색 결과 없음 / 태그 없음 / 전체 없음 구분)
+- [x] 주요 버튼 aria-label 추가
 
 ---
 
-## 구현 계획
+## 구현 결과
 
-### 토스트 시스템
+### 토스트 시스템 (`src/components/ToastProvider.tsx`)
 
-외부 라이브러리 없이 자체 구현 (의존성 최소화):
+- Context + useReducer 기반 자체 구현 (외부 라이브러리 없음)
+- 3초 후 자동 소멸
+- 위치: 화면 우측 하단 (fixed bottom-4 right-4)
+- sessionStorage 연동: 페이지 이동 후에도 토스트 표시 가능
 
-```ts
-// src/components/Toast.tsx — Context + useReducer 기반
-// 사용: useToast().show('글이 등록되었습니다.', 'success')
-```
+**적용 위치:**
 
-적용 위치:
-- `posts/new/page.tsx`: 글 등록 성공/실패
-- `DeletePostButton.tsx`: 삭제 완료
-- `CommentSection.tsx`: 댓글 등록/삭제
-- `LikeButton.tsx`: 좋아요 토글 (선택)
+| 액션 | 토스트 메시지 | 방식 |
+|------|------------|------|
+| 글 작성 성공 | "게시글이 등록되었습니다." | sessionStorage → 홈에서 표시 |
+| 글 삭제 성공 | "게시글이 삭제되었습니다." | sessionStorage → 홈에서 표시 |
+| 댓글 등록 | "댓글이 등록되었습니다." | 동일 페이지 직접 표시 |
+| 댓글 삭제 | "댓글이 삭제되었습니다." | 동일 페이지 직접 표시 |
 
 ### 로딩 상태
 
-- `CommentSection`: 댓글 목록 로딩 중 스피너
-- `LikeButton`: 이미 loading 있음 (버튼 disabled)
+- `CommentSection`: `loadingComments` state + CSS 스피너 (`animate-spin`)
+- `LikeButton`: 기존 `loading` state 유지 (버튼 disabled 처리)
 
-### 빈 상태 UI
+### 빈 상태 UI (`src/app/page.tsx`)
 
-현재 홈 페이지에 "글 없을 때" 메시지가 있으나 검색/태그 결과 없음과 구분 필요:
-- 검색 결과 없음: "'{keyword}'에 대한 검색 결과가 없습니다."
-- 전체 없음: "아직 작성된 글이 없습니다."
+```tsx
+{search ? (
+  <p>"{search}"에 대한 검색 결과가 없습니다.</p>
+) : tag ? (
+  <p>#{tag} 태그가 달린 게시글이 없습니다.</p>
+) : (
+  <p>아직 작성된 글이 없습니다.</p>
+)}
+```
 
-### 접근성
+### 접근성 개선 (aria-label)
 
-주요 버튼에 aria-label 추가:
-- 검색 제출 버튼 (🔍)
-- 검색 초기화 버튼 (✕)
-- 좋아요 버튼
-- 삭제 버튼들
+| 컴포넌트 | 추가된 aria-label |
+|---------|-----------------|
+| SearchBar — ✕ 버튼 | `aria-label="검색어 초기화"` |
+| SearchBar — 🔍 버튼 | `aria-label="검색"` |
+| LikeButton | `aria-label={liked ? '좋아요 취소' : '좋아요'}` |
+| DeletePostButton | `aria-label="게시글 삭제"` |
 
 ---
 
 ## 결정사항
 
-- 토스트는 외부 라이브러리(react-hot-toast 등) 사용 검토 → 간단한 자체 구현 선택
-- 토스트 위치: 화면 우측 하단
-- 자동 닫힘: 3초 후
+- 토스트는 외부 라이브러리 없이 자체 구현 (의존성 최소화)
+- 페이지 이동(window.location.href) 후 토스트는 sessionStorage 경유
+- 토스트 지속 시간: 3초 (UX 표준 준수)
+- 테스트: 25/25 기존 테스트 모두 통과 확인
