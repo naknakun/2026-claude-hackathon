@@ -20,15 +20,15 @@ export default function CategoryFilter({ current }: { current: string }) {
   }
 
   return (
-    <div className="flex gap-2 flex-wrap">
+    <div className="flex gap-0 border-b border-[var(--border)]">
       {CATEGORIES.map((cat) => (
         <button
           key={cat}
           onClick={() => handleClick(cat)}
-          className={`px-3 py-1.5 rounded-full text-sm border transition-colors ${
+          className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors -mb-px ${
             current === cat
-              ? 'bg-blue-600 text-white border-blue-600'
-              : 'bg-white text-gray-600 border-gray-300 hover:border-blue-400'
+              ? 'border-[var(--accent)] text-[var(--accent)]'
+              : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:border-[var(--border)]'
           }`}
         >
           {cat}

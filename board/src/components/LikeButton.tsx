@@ -62,13 +62,13 @@ export default function LikeButton({ postId }: { postId: string }) {
     <button
       onClick={handleToggle}
       disabled={loading}
-      className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm border transition-colors disabled:opacity-50 ${
+      className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium border transition-all disabled:opacity-50 ${
         liked
-          ? 'bg-blue-600 text-white border-blue-600'
-          : 'bg-white text-gray-600 border-gray-300 hover:border-blue-400'
+          ? 'bg-[var(--accent)] text-white border-[var(--accent)] shadow-sm'
+          : 'bg-[var(--bg-surface)] text-[var(--text-secondary)] border-[var(--border)] hover:border-[var(--accent)] hover:text-[var(--accent)]'
       }`}
     >
-      <span>{liked ? '♥' : '♡'}</span>
+      <span className="text-base leading-none">{liked ? '♥' : '♡'}</span>
       <span>{count}</span>
     </button>
   )

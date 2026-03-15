@@ -1,0 +1,233 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1773577793287,
+  "projectRoot": "d:\\study\\claude\\first-claude",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [],
+    "gitBranches": null
+  },
+  "customNotes": [],
+  "directoryMap": {},
+  "hotPaths": [
+    {
+      "path": "board\\src\\components\\Header.tsx",
+      "accessCount": 8,
+      "lastAccessed": 1773583326317,
+      "type": "file"
+    },
+    {
+      "path": "board\\src\\app\\page.tsx",
+      "accessCount": 8,
+      "lastAccessed": 1773583352508,
+      "type": "file"
+    },
+    {
+      "path": "board\\src\\app\\posts\\[id]\\page.tsx",
+      "accessCount": 7,
+      "lastAccessed": 1773583362759,
+      "type": "file"
+    },
+    {
+      "path": "board\\src\\app\\layout.tsx",
+      "accessCount": 7,
+      "lastAccessed": 1773583604704,
+      "type": "file"
+    },
+    {
+      "path": "board\\src\\components\\CommentSection.tsx",
+      "accessCount": 6,
+      "lastAccessed": 1773583477646,
+      "type": "file"
+    },
+    {
+      "path": "board\\src\\app\\globals.css",
+      "accessCount": 5,
+      "lastAccessed": 1773583311789,
+      "type": "file"
+    },
+    {
+      "path": "board\\src\\app\\posts\\new\\page.tsx",
+      "accessCount": 5,
+      "lastAccessed": 1773583376463,
+      "type": "file"
+    },
+    {
+      "path": "board\\src\\app\\login\\page.tsx",
+      "accessCount": 5,
+      "lastAccessed": 1773583394503,
+      "type": "file"
+    },
+    {
+      "path": "board\\src\\app\\signup\\page.tsx",
+      "accessCount": 5,
+      "lastAccessed": 1773583402159,
+      "type": "file"
+    },
+    {
+      "path": "docs\\PRD.md",
+      "accessCount": 4,
+      "lastAccessed": 1773583098320,
+      "type": "file"
+    },
+    {
+      "path": "board\\next.config.ts",
+      "accessCount": 4,
+      "lastAccessed": 1773583631246,
+      "type": "file"
+    },
+    {
+      "path": "board\\src\\middleware.ts",
+      "accessCount": 3,
+      "lastAccessed": 1773582096522,
+      "type": "file"
+    },
+    {
+      "path": "docs\\ROADMAP.md",
+      "accessCount": 3,
+      "lastAccessed": 1773583112591,
+      "type": "file"
+    },
+    {
+      "path": "board\\src\\components\\CategoryFilter.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1773583331167,
+      "type": "file"
+    },
+    {
+      "path": "board\\src\\components\\ThemeToggle.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1773583336022,
+      "type": "file"
+    },
+    {
+      "path": "board\\src\\components\\LikeButton.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1773583422599,
+      "type": "file"
+    },
+    {
+      "path": "CLAUDE.md",
+      "accessCount": 3,
+      "lastAccessed": 1773583834382,
+      "type": "file"
+    },
+    {
+      "path": "board\\src\\types\\index.ts",
+      "accessCount": 2,
+      "lastAccessed": 1773583462022,
+      "type": "file"
+    },
+    {
+      "path": "board\\.env.local",
+      "accessCount": 1,
+      "lastAccessed": 1773580417584,
+      "type": "file"
+    },
+    {
+      "path": "board\\src\\lib\\supabase.ts",
+      "accessCount": 1,
+      "lastAccessed": 1773580423900,
+      "type": "file"
+    },
+    {
+      "path": "board\\supabase-schema.sql",
+      "accessCount": 1,
+      "lastAccessed": 1773580432650,
+      "type": "file"
+    },
+    {
+      "path": ".claude\\settings.local.json",
+      "accessCount": 1,
+      "lastAccessed": 1773580553879,
+      "type": "file"
+    },
+    {
+      "path": "board\\src\\lib\\supabase-server.ts",
+      "accessCount": 1,
+      "lastAccessed": 1773581118331,
+      "type": "file"
+    },
+    {
+      "path": "board\\src\\components\\LogoutButton.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1773581151571,
+      "type": "file"
+    },
+    {
+      "path": "board\\src\\components\\DeletePostButton.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1773581996725,
+      "type": "file"
+    },
+    {
+      "path": "docs\\SPEC.md",
+      "accessCount": 1,
+      "lastAccessed": 1773583771653,
+      "type": "file"
+    },
+    {
+      "path": "docs\\sprint\\sprint1.md",
+      "accessCount": 1,
+      "lastAccessed": 1773583780642,
+      "type": "file"
+    },
+    {
+      "path": "docs\\sprint\\sprint2.md",
+      "accessCount": 1,
+      "lastAccessed": 1773583785094,
+      "type": "file"
+    },
+    {
+      "path": "docs\\sprint\\sprint3.md",
+      "accessCount": 1,
+      "lastAccessed": 1773583792209,
+      "type": "file"
+    },
+    {
+      "path": "docs\\sprint\\sprint4.md",
+      "accessCount": 1,
+      "lastAccessed": 1773583798606,
+      "type": "file"
+    },
+    {
+      "path": "docs\\sprint\\sprint5.md",
+      "accessCount": 1,
+      "lastAccessed": 1773583803437,
+      "type": "file"
+    },
+    {
+      "path": "docs\\sprint\\sprint6.md",
+      "accessCount": 1,
+      "lastAccessed": 1773583807504,
+      "type": "file"
+    },
+    {
+      "path": "docs\\sprint\\sprint7.md",
+      "accessCount": 1,
+      "lastAccessed": 1773583813119,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}

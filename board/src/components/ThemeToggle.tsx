@@ -22,7 +22,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggle}
-      className="text-sm px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+      className="text-sm px-2 py-1 rounded-md hover:bg-[var(--bg-hover)] transition-colors text-[var(--text-muted)]"
       aria-label="테마 전환"
     >
       {dark ? '☀️' : '🌙'}

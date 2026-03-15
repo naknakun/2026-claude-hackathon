@@ -60,23 +60,28 @@ export default function CommentSection({ postId }: { postId: string }) {
   }
 
   return (
-    <div className="mt-8 border-t pt-6">
-      <h2 className="font-semibold text-sm mb-4">댓글 {comments.length}개</h2>
+    <div className="mt-6 border-t border-[var(--border)] pt-6">
+      <h2 className="text-sm font-semibold text-[var(--text-primary)] mb-4">
+        댓글{' '}
+        <span className="text-[var(--accent)] font-bold">{comments.length}</span>
+      </h2>
 
-      <div className="space-y-3 mb-6">
+      <div className="space-y-0 mb-5 divide-y divide-[var(--border)]">
         {comments.map((comment) => (
-          <div key={comment.id} className="flex items-start justify-between gap-2">
-            <div>
-              <span className="text-xs text-gray-400 mr-2">익명</span>
-              <span className="text-xs text-gray-300">
-                {new Date(comment.created_at).toLocaleDateString('ko-KR')}
-              </span>
-              <p className="text-sm mt-1">{comment.content}</p>
+          <div key={comment.id} className="flex items-start justify-between gap-2 py-3">
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-xs font-medium text-[var(--text-secondary)]">익명</span>
+                <span className="text-xs text-[var(--text-muted)]">
+                  {new Date(comment.created_at).toLocaleDateString('ko-KR')}
+                </span>
+              </div>
+              <p className="text-sm text-[var(--text-primary)] leading-relaxed">{comment.content}</p>
             </div>
-            {userId === comment.user_id && (
+            {userId === (comment as unknown as { user_id: string }).user_id && (
               <button
                 onClick={() => handleDelete(comment.id)}
-                className="text-xs text-red-400 hover:text-red-600 shrink-0"
+                className="text-xs text-[var(--text-muted)] hover:text-red-500 transition-colors shrink-0 mt-1"
               >
                 삭제
               </button>
@@ -84,7 +89,7 @@ export default function CommentSection({ postId }: { postId: string }) {
           </div>
         ))}
         {comments.length === 0 && (
-          <p className="text-sm text-gray-400">첫 댓글을 남겨보세요!</p>
+          <p className="text-sm text-[var(--text-muted)] py-4">첫 댓글을 남겨보세요!</p>
         )}
       </div>
 
@@ -95,20 +100,20 @@ export default function CommentSection({ postId }: { postId: string }) {
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="댓글을 입력하세요"
-            className="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex-1 border border-[var(--border)] rounded-lg px-3 py-2 text-sm bg-[var(--bg-base)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-shadow"
           />
           <button
             type="submit"
             disabled={loading}
-            className="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            className="px-4 py-2 text-sm bg-[var(--accent)] text-white rounded-lg hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors font-medium"
           >
             등록
           </button>
         </form>
       ) : (
-        <p className="text-sm text-gray-400">
+        <p className="text-sm text-[var(--text-muted)]">
           댓글을 작성하려면{' '}
-          <a href="/login" className="text-blue-600 hover:underline">로그인</a>
+          <a href="/login" className="text-[var(--accent)] hover:underline">로그인</a>
           이 필요합니다.
         </p>
       )}

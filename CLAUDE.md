@@ -1,40 +1,35 @@
 # CLAUDE.md
 
-## Project Overview
+## 프로젝트 개요
 
-회사 내부용 익명 게시판. 이메일 로그인으로 사내 구성원임을 인증하되, 게시글/댓글은 완전 익명으로 작성된다.
+- **서비스명**: 사내 익명 게시판
+- **설명**: 회사 구성원만 접근 가능한 익명 게시판. 이메일 로그인으로 인증하되 게시글/댓글은 완전 익명
+- **기술 스택**: Next.js (App Router) / TypeScript / Tailwind CSS v4 / Supabase
 
-## Tech Stack
+## 코드 규칙
 
-- **Frontend**: Next.js 14 (App Router, TypeScript, Tailwind CSS)
-- **Backend / DB**: Supabase (PostgreSQL + Auth + RLS)
-- **Deploy**: Vercel
+- `any` 타입 사용 금지 — 반드시 명시적 타입 정의
+- `console.log` 프로덕션 코드에 남기지 말 것
+- TODO 없이 미완성 코드 커밋 금지
+- 데이터 패칭: Server Component → `lib/supabase-server.ts`
+- 클라이언트 뮤테이션: Client Component → `lib/supabase.ts`
+- 페이지 전환 후 서버 컴포넌트 갱신: `window.location.href` 사용 (`router.refresh()` 단독 사용 금지)
 
-## Structure
+## 절대 하지 말 것
 
-```
-board/          ← Next.js 앱 루트
-├── src/
-│   ├── app/        ← App Router 페이지
-│   ├── components/ ← 공통 컴포넌트
-│   ├── lib/        ← Supabase 클라이언트 등 유틸
-│   └── types/      ← TypeScript 타입 정의
-├── .env.local      ← Supabase 키 (git 제외)
-└── supabase-schema.sql ← DB 스키마
-docs/
-├── PRD.md      ← 요구사항 정의서
-└── ROADMAP.md  ← Sprint 계획
-```
+- 작성자 `user_id` API/UI 노출 금지 (익명성 보장)
+- RLS 정책 비활성화 금지
+- `any` 타입 사용 금지
 
-## Development
+## 컨텍스트 참조
 
-```bash
-cd board
-npm run dev   # http://localhost:3000
-```
+- **기술 스택 & 코드 규칙**: `docs/SPEC.md` 참조
+- **요구사항**: `docs/PRD.md` 참조
+- **개발 계획**: `docs/ROADMAP.md` 참조
+- **현재 Sprint**: `docs/sprint/` 폴더의 최신 파일 참조
 
-## Key Rules
+## 새 세션 시작 시
 
-- 작성자 정보(user_id)는 DB에만 저장, API/UI에서 절대 노출 금지
-- RLS(Row Level Security)로 본인 글/댓글만 삭제 가능
-- 새 세션 시작 시 docs/ROADMAP.md에서 현재 Sprint 상태 먼저 확인할 것
+1. `docs/ROADMAP.md`에서 현재 진행 중인 Sprint 확인
+2. 해당 Sprint 파일 (`docs/sprint/sprintN.md`) 읽기
+3. `docs/SPEC.md`에서 코드 규칙 확인 후 작업 시작

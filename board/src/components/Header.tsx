@@ -30,34 +30,43 @@ export default function Header() {
   }
 
   return (
-    <header className="border-b dark:border-gray-800 px-4 py-3 bg-white dark:bg-gray-950">
+    <header className="border-b border-[var(--border)] px-4 py-3 bg-[var(--bg-surface)] sticky top-0 z-50 backdrop-blur-sm">
       <div className="max-w-2xl mx-auto flex items-center justify-between">
-        <Link href="/" className="font-bold text-lg">
-          익명 게시판
+        <Link
+          href="/"
+          className="font-bold text-base text-[var(--text-primary)] flex items-center gap-1.5 tracking-tight"
+        >
+          <span className="text-lg">🏢</span>
+          <span>사내게시판</span>
         </Link>
-        <div className="flex items-center gap-3 text-sm">
+        <div className="flex items-center gap-2 text-sm">
           <ThemeToggle />
           {user ? (
             <>
               <Link
                 href="/posts/new"
-                className="bg-blue-600 text-white px-3 py-1.5 rounded-lg hover:bg-blue-700"
+                className="bg-[var(--accent)] text-white px-3 py-1.5 rounded-lg hover:bg-[var(--accent-hover)] transition-colors font-medium text-xs"
               >
                 글쓰기
               </Link>
               <button
                 onClick={handleLogout}
-                className="text-gray-500 hover:text-gray-800"
+                className="text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors text-xs"
               >
                 로그아웃
               </button>
             </>
           ) : (
             <>
-              <Link href="/login" className="hover:underline">로그인</Link>
+              <Link
+                href="/login"
+                className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-xs"
+              >
+                로그인
+              </Link>
               <Link
                 href="/signup"
-                className="bg-blue-600 text-white px-3 py-1.5 rounded-lg hover:bg-blue-700"
+                className="bg-[var(--accent)] text-white px-3 py-1.5 rounded-lg hover:bg-[var(--accent-hover)] transition-colors font-medium text-xs"
               >
                 회원가입
               </Link>

@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"taskkill /PID 35356 /F 2>&1 && rm -rf \\\"D:/study/claude/first-claude/board/.next/dev/lock\\\" 2>&1 && echo \\\"done\\\"\",\"description\":\"Kill process 35356 and delete Next.js dev lock file\"}",
+  "error": "Exit code 1\n����: �߸��� �μ�/�ɼ� - 'C:/Program Files/Git/PID'.\r\n������ ������ \"TASKKILL /?\"�� �Է��Ͻʽÿ�.",
+  "timestamp": "2026-03-15T13:20:15.658Z",
+  "retry_count": 1
+}
