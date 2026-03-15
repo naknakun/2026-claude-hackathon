@@ -219,3 +219,6 @@ likes    (id, post_id, user_id, created_at)
 | 7 | UI 리디자인 (Blind 스타일) | ✅ |
 | 8 | 게시글 검색 + 태그 필터링 | ✅ |
 | 9 | Playwright E2E 테스트 (11/11) | ✅ |
+| 10 | CI/CD (GitHub Actions) | ✅ |
+| 11 | 컴포넌트 단위 테스트 + 커버리지 (25/25) | ✅ |
+| 12 | UX 개선 (토스트 · 로딩 · 접근성) | ✅ |
