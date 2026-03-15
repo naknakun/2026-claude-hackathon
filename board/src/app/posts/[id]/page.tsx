@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase-server'
 import DeletePostButton from '@/components/DeletePostButton'
+import CommentSection from '@/components/CommentSection'
 
 export default async function PostPage({
   params,
@@ -39,6 +40,7 @@ export default async function PostPage({
       <div className="text-sm leading-relaxed whitespace-pre-wrap border-t pt-4">
         {post.content}
       </div>
+      <CommentSection postId={post.id} />
     </article>
   )
 }
