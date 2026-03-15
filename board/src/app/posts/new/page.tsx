@@ -3,22 +3,17 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase'
+import TagInput from '@/components/TagInput'
 import type { Category } from '@/types'
 
 const CATEGORIES: Category[] = ['자유', '건의', '칭찬', '고민']
-
-const CATEGORY_TAB: Record<string, string> = {
-  자유: 'border-[var(--accent)] text-[var(--accent)]',
-  건의: 'border-[var(--accent)] text-[var(--accent)]',
-  칭찬: 'border-[var(--accent)] text-[var(--accent)]',
-  고민: 'border-[var(--accent)] text-[var(--accent)]',
-}
 
 export default function NewPostPage() {
   const router = useRouter()
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [category, setCategory] = useState<Category>('자유')
+  const [tags, setTags] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -39,6 +34,7 @@ export default function NewPostPage() {
       title,
       content,
       category,
+      tags,
       user_id: user.id,
     })
 
@@ -76,27 +72,29 @@ export default function NewPostPage() {
           </div>
 
           {/* 제목 */}
-          <div>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-              placeholder="제목"
-              className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--bg-base)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-shadow"
-            />
-          </div>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+            placeholder="제목"
+            className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--bg-base)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-shadow"
+          />
 
           {/* 내용 */}
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            required
+            placeholder="내용을 입력하세요"
+            rows={10}
+            className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--bg-base)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-shadow resize-none leading-relaxed"
+          />
+
+          {/* 태그 */}
           <div>
-            <textarea
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              required
-              placeholder="내용을 입력하세요"
-              rows={10}
-              className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--bg-base)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-shadow resize-none leading-relaxed"
-            />
+            <label className="block text-xs font-medium text-[var(--text-secondary)] mb-1.5">태그</label>
+            <TagInput value={tags} onChange={setTags} />
           </div>
 
           {error && (

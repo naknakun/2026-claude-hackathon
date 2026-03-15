@@ -5,6 +5,7 @@ export interface Post {
   title: string
   content: string
   category: Category
+  tags: string[]
   created_at: string
   comment_count?: number
   like_count?: number

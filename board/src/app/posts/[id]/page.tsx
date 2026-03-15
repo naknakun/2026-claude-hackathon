@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase-server'
 import DeletePostButton from '@/components/DeletePostButton'
 import CommentSection from '@/components/CommentSection'
 import LikeButton from '@/components/LikeButton'
+import TagBadge from '@/components/TagBadge'
 
 const CATEGORY_BADGE: Record<string, string> = {
   자유: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300',
@@ -61,7 +62,16 @@ export default async function PostPage({
         {isOwner && <DeletePostButton postId={post.id} />}
       </div>
 
-      <p className="text-xs text-[var(--text-muted)] mb-6">익명</p>
+      <p className="text-xs text-[var(--text-muted)] mb-3">익명</p>
+
+      {/* 태그 */}
+      {post.tags && post.tags.length > 0 && (
+        <div className="flex flex-wrap gap-1.5 mb-5">
+          {post.tags.map((tag: string) => (
+            <TagBadge key={tag} tag={tag} />
+          ))}
+        </div>
+      )}
 
       {/* 본문 */}
       <div className="text-sm text-[var(--text-secondary)] leading-7 tracking-wide whitespace-pre-wrap border-t border-[var(--border)] pt-5 mb-6">

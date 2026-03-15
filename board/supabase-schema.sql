@@ -5,8 +5,12 @@ create table posts (
   title text not null,
   content text not null,
   category text not null check (category in ('자유', '건의', '칭찬', '고민')),
+  tags text[] default '{}',
   created_at timestamptz default now() not null
 );
+
+-- 태그 검색 인덱스
+create index posts_tags_gin on posts using gin(tags);
 
 -- Comments 테이블
 create table comments (
