@@ -223,9 +223,9 @@ likes    (id, post_id, user_id, created_at)
 | 6 | 라이트/다크 테마 + 반응형 | ✅ |
 | 7 | UI 리디자인 (Blind 스타일) | ✅ |
 | 8 | 게시글 검색 + 태그 필터링 | ✅ |
-| 9 | Playwright E2E 테스트 (11/11) | ✅ |
+| 9 | Playwright E2E 테스트 (Desktop 11/11 + Mobile 11/11) | ✅ |
 | 10 | CI/CD (GitHub Actions) | ✅ |
 | 11 | 컴포넌트 단위 테스트 + 커버리지 (25/25) | ✅ |
 | 12 | UX 개선 (토스트 · 로딩 · 접근성) | ✅ |
-| 13 | CI/CD 고도화 (빌드 체크 · 롤백 · 모니터링) | ✅ |
-| 14 | 테스트 전략 보강 (LikeButton/CommentSection mock 포함 38/38) | ✅ |
+| 13 | CI/CD 고도화 (Lighthouse CI · 자동 롤백 · 헬스체크) | ✅ |
+| 14 | 테스트 전략 보강 (Supabase mock + 성능 테스트, 38/38) | ✅ |

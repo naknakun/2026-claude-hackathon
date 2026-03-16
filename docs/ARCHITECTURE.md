@@ -216,7 +216,32 @@ likes (
 
 ---
 
-## 8. 테스트 구조
+## 8. CI/CD 파이프라인
+
+```
+push/PR → build-check    → Next.js 빌드 검증 (TypeScript 오류 조기 감지)
+        → unit-test      → Vitest 38개 테스트
+        → e2e-test       → Playwright 25개 E2E (Supabase 시크릿 설정 시)
+        → lighthouse     → Lighthouse CI (Performance 70+ / Accessibility 80+)
+
+main push 전용:
+        → health-check   → HTTP 200 확인 (5회 재시도)
+                              ✅ 통과 → 완료
+                              ❌ 실패 → vercel rollback 자동 실행
+```
+
+**배포 흐름:**
+```
+git push main
+    → GitHub Actions CI (위 파이프라인)
+    → Vercel 자동 빌드 & 배포 (main 브랜치)
+    → health-check로 프로덕션 URL 검증
+    → 실패 시 자동 롤백 (VERCEL_TOKEN 설정 필요)
+```
+
+---
+
+## 9. 테스트 구조
 
 ```
 board/
@@ -236,14 +261,21 @@ board/
     ├── search.spec.ts       # 검색 (3개)
     ├── tag.spec.ts          # 태그 필터 (1개)
     ├── comment.spec.ts      # 댓글 (1개)
-    └── like.spec.ts         # 좋아요 (1개)
+    ├── like.spec.ts         # 좋아요 (1개)
+    └── performance.spec.ts  # 성능 (3개 — 홈/로그인/상세 응답 시간)
 ```
 
+| 테스트 종류 | 도구 | 결과 |
+|------------|------|------|
 | 테스트 종류 | 도구 | 결과 |
 |------------|------|------|
 | 단위 테스트 | Vitest + React Testing Library | 25/25 통과 |
 | 통합 테스트 | Vitest + React Testing Library | 4/4 통과 (ToastProvider) |
 | 단위 테스트 (Supabase mock) | Vitest + React Testing Library | 9/9 통과 (LikeButton, CommentSection) |
+| **Vitest 합계** | | **38/38 통과** |
 | E2E — Desktop Chrome | Playwright | 11/11 통과 |
 | E2E — Mobile Chrome (Pixel 5) | Playwright | 11/11 통과 |
+| 성능 테스트 | Playwright | 3/3 통과 (홈 318ms / 로그인 190ms / 상세 58ms) |
+| **E2E 합계** | | **25/25 통과** |
 | 커버리지 | @vitest/coverage-v8 | 대상 컴포넌트 100% |
+| Lighthouse CI | @lhci/cli | Performance 70+ / Accessibility 80+ (CI 자동화) |
