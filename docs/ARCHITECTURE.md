@@ -216,7 +216,67 @@ likes (
 
 ---
 
-## 8. CI/CD 파이프라인
+## 8. 에러 처리 전략
+
+### 원칙
+
+| 원칙 | 적용 위치 | 설명 |
+|------|---------|------|
+| 낙관적 UI | LikeButton | 사용자 액션 즉시 반영 → 실패 시 이전 상태로 롤백 |
+| try/catch + error toast | LikeButton, CommentSection | 사용자에게 실패 원인 인지 가능하도록 |
+| finally | 모든 비동기 뮤테이션 | loading 상태 반드시 해제 |
+| silent fail | 초기 데이터 로딩 | 좋아요 수 초기화 실패 시 기본값 유지 (렌더링 방해 없음) |
+
+### 에러 처리 흐름 (LikeButton)
+
+```
+버튼 클릭
+    → 낙관적 UI 업데이트 (즉각 반응)
+    → try: Supabase 뮤테이션
+        ✅ 성공 → 완료
+        ❌ 실패 → UI 롤백 + error toast 표시
+    → finally: setLoading(false)
+```
+
+### 에러 처리 흐름 (CommentSection)
+
+| 동작 | 성공 | 실패 |
+|------|------|------|
+| 댓글 불러오기 | 목록 렌더링 | error toast + 로딩 해제 |
+| 댓글 등록 | success toast + 목록 갱신 | error toast + 로딩 해제 |
+| 댓글 삭제 | success toast + 목록 갱신 | error toast |
+
+---
+
+## 9. 상태 관리 전략
+
+### 상태 유형별 관리 방법
+
+| 상태 유형 | 관리 방법 | 위치 |
+|----------|---------|------|
+| 전역 UI 상태 (토스트) | Context API + useReducer | `ToastProvider.tsx` |
+| 컴포넌트 로컬 상태 | useState | 각 Client Component |
+| 서버 데이터 | Server Component SSR | `app/page.tsx`, `app/posts/[id]/page.tsx` |
+| 테마 | localStorage + CSS class | `ThemeToggle.tsx` |
+| 인증 세션 | Supabase Auth (쿠키) | `middleware.ts` |
+
+### Context API 선택 근거
+
+- 전역 상태 범위가 토스트 1개 → 외부 라이브러리 불필요
+- Server Component SSR이 대부분의 데이터 패칭을 담당 → 클라이언트 상태 최소화
+- 사내 소규모 게시판 → 상태 복잡도 낮음
+
+### 확장 시 고려 기술
+
+| 상황 | 대안 |
+|------|------|
+| 전역 상태 5개 이상 | Zustand (경량, 보일러플레이트 없음) |
+| 서버 상태 캐싱 필요 | TanStack Query (캐싱/리페치/낙관적 업데이트) |
+| 복잡한 비즈니스 로직 | Redux Toolkit |
+
+---
+
+## 10. CI/CD 파이프라인
 
 ```
 push/PR → build-check    → Next.js 빌드 검증 (TypeScript 오류 조기 감지)
@@ -241,7 +301,7 @@ git push main
 
 ---
 
-## 9. 테스트 구조
+## 11. 테스트 구조
 
 ```
 board/

@@ -23,14 +23,20 @@ export default function CommentSection({ postId }: { postId: string }) {
 
   async function fetchComments() {
     setLoadingComments(true)
-    const supabase = createClient()
-    const { data } = await supabase
-      .from('comments')
-      .select('*')
-      .eq('post_id', postId)
-      .order('created_at', { ascending: true })
-    setComments(data ?? [])
-    setLoadingComments(false)
+    try {
+      const supabase = createClient()
+      const { data, error } = await supabase
+        .from('comments')
+        .select('*')
+        .eq('post_id', postId)
+        .order('created_at', { ascending: true })
+      if (error) throw error
+      setComments(data ?? [])
+    } catch {
+      toast.show('댓글을 불러오는 중 오류가 발생했습니다.', 'error')
+    } finally {
+      setLoadingComments(false)
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -38,32 +44,43 @@ export default function CommentSection({ postId }: { postId: string }) {
     if (!content.trim()) return
     setLoading(true)
 
-    const supabase = createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+    try {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
 
-    if (!user) {
-      window.location.href = '/login'
-      return
+      if (!user) {
+        window.location.href = '/login'
+        return
+      }
+
+      const { error } = await supabase.from('comments').insert({
+        post_id: postId,
+        content: content.trim(),
+        user_id: user.id,
+      })
+      if (error) throw error
+
+      setContent('')
+      toast.show('댓글이 등록되었습니다.')
+      fetchComments()
+    } catch {
+      toast.show('댓글 등록 중 오류가 발생했습니다.', 'error')
+    } finally {
+      setLoading(false)
     }
-
-    await supabase.from('comments').insert({
-      post_id: postId,
-      content: content.trim(),
-      user_id: user.id,
-    })
-
-    setContent('')
-    setLoading(false)
-    toast.show('댓글이 등록되었습니다.')
-    fetchComments()
   }
 
   async function handleDelete(commentId: string) {
     if (!confirm('댓글을 삭제할까요?')) return
-    const supabase = createClient()
-    await supabase.from('comments').delete().eq('id', commentId)
-    toast.show('댓글이 삭제되었습니다.')
-    fetchComments()
+    try {
+      const supabase = createClient()
+      const { error } = await supabase.from('comments').delete().eq('id', commentId)
+      if (error) throw error
+      toast.show('댓글이 삭제되었습니다.')
+      fetchComments()
+    } catch {
+      toast.show('댓글 삭제 중 오류가 발생했습니다.', 'error')
+    }
   }
 
   return (

@@ -2,34 +2,41 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase'
+import { useToast } from '@/components/ToastProvider'
 
 export default function LikeButton({ postId }: { postId: string }) {
   const [liked, setLiked] = useState(false)
   const [count, setCount] = useState(0)
   const [userId, setUserId] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const toast = useToast()
 
   useEffect(() => {
     const supabase = createClient()
 
     async function init() {
-      const { data: { user } } = await supabase.auth.getUser()
-      setUserId(user?.id ?? null)
+      try {
+        const { data: { user } } = await supabase.auth.getUser()
+        setUserId(user?.id ?? null)
 
-      const { count: likeCount } = await supabase
-        .from('likes')
-        .select('*', { count: 'exact', head: true })
-        .eq('post_id', postId)
-      setCount(likeCount ?? 0)
-
-      if (user) {
-        const { data } = await supabase
+        const { count: likeCount, error: countError } = await supabase
           .from('likes')
-          .select('id')
+          .select('*', { count: 'exact', head: true })
           .eq('post_id', postId)
-          .eq('user_id', user.id)
-          .single()
-        setLiked(!!data)
+        if (countError) throw countError
+        setCount(likeCount ?? 0)
+
+        if (user) {
+          const { data } = await supabase
+            .from('likes')
+            .select('id')
+            .eq('post_id', postId)
+            .eq('user_id', user.id)
+            .single()
+          setLiked(!!data)
+        }
+      } catch {
+        // 초기 로딩 실패 시 기본값 유지 (silent fail)
       }
     }
 
@@ -42,20 +49,32 @@ export default function LikeButton({ postId }: { postId: string }) {
       return
     }
     setLoading(true)
-    const supabase = createClient()
+    const prevLiked = liked
+    const prevCount = count
 
-    if (liked) {
-      await supabase.from('likes').delete()
-        .eq('post_id', postId)
-        .eq('user_id', userId)
-      setLiked(false)
-      setCount((c) => c - 1)
-    } else {
-      await supabase.from('likes').insert({ post_id: postId, user_id: userId })
-      setLiked(true)
-      setCount((c) => c + 1)
+    // 낙관적 UI 업데이트
+    setLiked(!liked)
+    setCount((c) => liked ? c - 1 : c + 1)
+
+    try {
+      const supabase = createClient()
+      if (liked) {
+        const { error } = await supabase.from('likes').delete()
+          .eq('post_id', postId)
+          .eq('user_id', userId)
+        if (error) throw error
+      } else {
+        const { error } = await supabase.from('likes').insert({ post_id: postId, user_id: userId })
+        if (error) throw error
+      }
+    } catch {
+      // 실패 시 UI 롤백
+      setLiked(prevLiked)
+      setCount(prevCount)
+      toast.show('좋아요 처리 중 오류가 발생했습니다.', 'error')
+    } finally {
+      setLoading(false)
     }
-    setLoading(false)
   }
 
   return (

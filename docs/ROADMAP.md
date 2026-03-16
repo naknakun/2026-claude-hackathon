@@ -255,3 +255,31 @@ Sprint 6 → 라이트 / 다크 테마 + 반응형 마무리
 
 **의존성:** Sprint 11
 
+---
+
+## Sprint 15 — 에러 처리 전략 구현
+
+**목표:** LikeButton, CommentSection 에러 처리 강화 및 전략 문서화
+**완료 기준:** try/catch + 낙관적 UI 롤백 + error toast 구현
+
+### 태스크
+- [x] LikeButton: 낙관적 UI + try/catch + error toast + finally
+- [x] CommentSection: fetchComments/handleSubmit/handleDelete 전체 try/catch
+- [x] ARCHITECTURE.md 에러 처리 전략 섹션 추가
+
+**의존성:** Sprint 12
+
+---
+
+## Sprint 16 — 상태 관리 전략 문서화
+
+**목표:** Context API 선택 근거와 확장성 계획 명시적 문서화
+**완료 기준:** ARCHITECTURE.md 상태 관리 섹션 추가
+
+### 태스크
+- [x] 상태 유형별 관리 방법 표 작성
+- [x] Context API 선택 근거 문서화
+- [x] 확장 시 대안 기술 (Zustand, TanStack Query) 명시
+
+**의존성:** Sprint 12
+

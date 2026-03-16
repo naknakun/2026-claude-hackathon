@@ -229,3 +229,5 @@ likes    (id, post_id, user_id, created_at)
 | 12 | UX 개선 (토스트 · 로딩 · 접근성) | ✅ |
 | 13 | CI/CD 고도화 (Lighthouse CI · 자동 롤백 · 헬스체크) | ✅ |
 | 14 | 테스트 전략 보강 (Supabase mock + 성능 테스트, 38/38) | ✅ |
+| 15 | 에러 처리 전략 구현 (낙관적 UI 롤백 + error toast) | ✅ |
+| 16 | 상태 관리 전략 문서화 (Context API 근거 + 확장성 계획) | ✅ |
