@@ -20,18 +20,17 @@
 ## 테스트 결과
 
 ```
-Test Files: 5 passed
-Tests:      29 passed
+Test Files: 7 passed
+Tests:      38 passed
 ```
 
-### 통합 테스트 (`ToastProvider.test.tsx`) — 4개
+### 신규 테스트
 
-| 케이스 | 검증 내용 |
-|--------|---------|
-| success 토스트 표시 | useToast().show() 호출 시 메시지 렌더링 |
-| error 토스트 표시 | error 타입 토스트 렌더링 |
-| sessionStorage pendingToast | 마운트 시 자동 읽기 + 표시 + 삭제 |
-| 여러 토스트 동시 표시 | 복수 토스트 누적 렌더링 |
+| 파일 | 유형 | 케이스 수 | 주요 검증 |
+|------|------|---------|---------|
+| `ToastProvider.test.tsx` | 통합 | 4개 | useToast + sessionStorage 연동 |
+| `LikeButton.test.tsx` | 단위(Supabase mock) | 4개 | 렌더링, 좋아요 수, liked 상태 |
+| `CommentSection.test.tsx` | 단위(Supabase mock) | 5개 | 로딩, 목록, 빈 상태, 인증 분기 |
 
 ### 전체 테스트 현황
 
@@ -41,8 +40,24 @@ Tests:      29 passed
 | `TagInput.test.tsx` | 단위 | 7개 |
 | `TagBadge.test.tsx` | 단위 | 4개 |
 | `search.test.ts` | 단위 | 9개 |
-| `ToastProvider.test.tsx` | **통합** | 4개 |
-| **합계** | | **29개** |
+| `ToastProvider.test.tsx` | 통합 | 4개 |
+| `LikeButton.test.tsx` | 단위(Supabase mock) | 4개 |
+| `CommentSection.test.tsx` | 단위(Supabase mock) | 5개 |
+| **합계** | | **38개** |
+
+### Supabase mock 전략
+
+```ts
+// createClient()를 vi.mock으로 대체
+vi.mock('@/lib/supabase', () => ({ createClient: vi.fn() }))
+
+// 쿼리 빌더: 체인 가능(eq/select 등) + thenable(count 쿼리 await용)
+function makeBuilder(countResolve = { count: 0 }) {
+  const builder = { select, eq, single, insert, delete, then }
+  // then: await builder → countResolve
+  // single: await builder.single() → { data: null | {...} }
+}
+```
 
 ---
 

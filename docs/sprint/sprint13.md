@@ -23,14 +23,20 @@
 ### CI 파이프라인 구조 (`.github/workflows/ci.yml`)
 
 ```
-push/PR → build-check  → Next.js 빌드 성공 여부 검증
-        → unit-test    → Vitest 25개 단위 테스트
-        → e2e-test     → Playwright 11개 E2E (vars.RUN_E2E == 'true' 시)
+push/PR → build-check   → Next.js 빌드 성공 여부 검증
+        → unit-test     → Vitest 38개 테스트
+        → e2e-test      → Playwright 11개 E2E (Supabase 시크릿 설정 시 자동 실행)
+
+main push 전용:
+        → lighthouse    → Lighthouse CI (성능/접근성 자동 측정)
+        → health-check  → 배포 후 HTTP 200 확인 (5회 재시도, 30s 간격)
 ```
 
-**추가된 build-check job:**
-- `npm run build` 실행으로 TypeScript 타입 오류, import 오류 조기 감지
-- Supabase 환경 변수 미설정 환경에서도 placeholder로 빌드 가능
+**변경 사항:**
+- `build-check` job 추가: TypeScript/import 오류 조기 감지
+- E2E 조건 개선: `vars.RUN_E2E == 'true'` → `secrets.NEXT_PUBLIC_SUPABASE_URL != ''` (자동 감지)
+- `lighthouse` job 추가: Vercel 배포 URL 대상 Lighthouse CI 자동 실행
+- `health-check` job 추가: 배포 후 프로덕션 URL HTTP 200 자동 검증 (5회 재시도)
 
 ### 롤백 전략
 
