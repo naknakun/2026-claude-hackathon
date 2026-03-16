@@ -127,12 +127,24 @@ git push origin hotfix/issue-description
 # → Vercel Preview URL로 검증 후 main에 merge
 ```
 
-### 롤백 판단 기준
+### 자동 롤백 (health-check 실패 시)
+
+`main` 브랜치 push 후 health-check job이 5회 재시도 후 실패하면 **자동으로** `vercel rollback`이 실행됩니다.
+
+**필요한 GitHub Secrets:**
+
+| Secret | 값 위치 |
+|--------|---------|
+| `VERCEL_TOKEN` | Vercel → Account Settings → Tokens |
+| `VERCEL_ORG_ID` | Vercel → Project Settings → General |
+| `VERCEL_PROJECT_ID` | Vercel → Project Settings → General |
+
+### 수동 롤백 판단 기준
 
 | 상황 | 대응 |
 |------|------|
 | 빌드 실패 | GitHub Actions 로그 확인 → 수정 후 재push |
-| 배포 후 기능 오류 | Vercel 대시보드 즉시 롤백 |
+| 배포 후 기능 오류 | health-check 자동 롤백 또는 Vercel 대시보드 즉시 롤백 |
 | DB 스키마 오류 | Supabase SQL Editor에서 마이그레이션 롤백 |
 
 ---

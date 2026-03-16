@@ -35,8 +35,35 @@ main push 전용:
 **변경 사항:**
 - `build-check` job 추가: TypeScript/import 오류 조기 감지
 - E2E 조건 개선: `vars.RUN_E2E == 'true'` → `secrets.NEXT_PUBLIC_SUPABASE_URL != ''` (자동 감지)
-- `lighthouse` job 추가: Vercel 배포 URL 대상 Lighthouse CI 자동 실행
-- `health-check` job 추가: 배포 후 프로덕션 URL HTTP 200 자동 검증 (5회 재시도)
+- `lighthouse` job 추가: push/PR 모두 실행, Performance/Accessibility/Best-Practices 기준 미달 시 CI 실패
+- `health-check` job 추가: 배포 후 HTTP 200 자동 검증 (5회 재시도) + **실패 시 `vercel rollback` 자동 실행**
+
+### 자동 롤백 흐름
+
+```
+push to main
+    → build-check + unit-test 통과
+    → Vercel 자동 배포
+    → health-check: HTTP 200 확인 (최대 2분 30초 대기)
+        ✅ 통과 → 완료
+        ❌ 실패 → vercel rollback --token=$VERCEL_TOKEN --yes (자동)
+```
+
+**필요한 GitHub Secrets (자동 롤백용):**
+
+| Secret | 설명 |
+|--------|------|
+| `VERCEL_TOKEN` | Vercel 계정 Settings → Tokens |
+| `VERCEL_ORG_ID` | Vercel 프로젝트 Settings → General |
+| `VERCEL_PROJECT_ID` | Vercel 프로젝트 Settings → General |
+
+### Lighthouse 기준 (`.lighthouserc.json`)
+
+| 항목 | 기준 | 미달 시 |
+|------|------|---------|
+| Performance | 70점 이상 | CI 실패 |
+| Accessibility | 80점 이상 | CI 실패 |
+| Best Practices | 80점 이상 | CI 실패 |
 
 ### 롤백 전략
 

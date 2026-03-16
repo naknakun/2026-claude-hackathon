@@ -98,7 +98,6 @@ jobs:
   lighthouse:
     name: Lighthouse CI
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
 
@@ -116,7 +115,12 @@ jobs:
     needs: [build-check, unit-test]
     if: github.ref == 'refs/heads/main'
     steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
       - name: Check production URL (with retry)
+        id: health
         run: |
           for i in 1 2 3 4 5; do
             response=$(curl -s -o /dev/null -w "%{http_code}" https://2026-claude-hackathon.vercel.app)
@@ -128,5 +132,16 @@ jobs:
             echo "Retrying in 30s..."
             sleep 30
           done
-          echo "::error::Health check failed. 롤백: Vercel Dashboard → Deployments → Promote previous"
+          echo "health_failed=true" >> $GITHUB_OUTPUT
+          echo "::error::Health check failed after 5 attempts"
           exit 1
+
+      - name: Auto rollback on health check failure
+        if: failure() && steps.health.outputs.health_failed == 'true'
+        run: |
+          echo "Health check failed — initiating auto rollback..."
+          npx vercel rollback --token=${{ secrets.VERCEL_TOKEN }} --yes
+          echo "Rollback complete"
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}

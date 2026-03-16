@@ -79,21 +79,32 @@ E2E 테스트 (Playwright)
 
 ## 성능 테스트 전략
 
-### 현재 적용
+### Playwright 응답 시간 측정 (`e2e/performance.spec.ts`)
+
+실제 측정 결과 (로컬 dev 서버):
+
+| 페이지 | 측정값 | 기준 |
+|--------|--------|------|
+| 홈 (`/`) | 318ms | 3000ms 이내 |
+| 로그인 (`/login`) | 190ms | 2000ms 이내 |
+| 게시글 상세 (`/posts/[id]`) | 58ms | 3000ms 이내 |
+
+### Lighthouse CI 자동화 (`ci.yml` lighthouse job)
+
+CI 파이프라인에서 push/PR 시 자동 실행:
+
+| 항목 | 기준 | 미달 시 |
+|------|------|---------|
+| Performance | 70점 이상 | CI 실패 |
+| Accessibility | 80점 이상 | CI 실패 |
+| Best Practices | 80점 이상 | CI 실패 |
+
+### 빌드 크기 / DB 성능
 
 | 항목 | 방법 |
 |------|------|
-| 빌드 크기 | `npm run build` 출력의 Page/Bundle 크기 확인 |
-| 응답 속도 | Vercel Dashboard → Functions → Duration 모니터링 |
+| 빌드 크기 | `npm run build` Page/Bundle 크기 자동 출력 (build-check job) |
 | DB 쿼리 성능 | Supabase Dashboard → Query Performance |
-
-### Lighthouse 기준값 (Vercel Preview 배포 후 수동 측정)
-
-| 항목 | 목표 |
-|------|------|
-| Performance | 80점 이상 |
-| Accessibility | 90점 이상 |
-| Best Practices | 90점 이상 |
 
 ---
 
